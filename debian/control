@@ -1,0 +1,23 @@
+Source: duplicity
+Section: utils
+Priority: optional
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Alexander Zangerl <az@debian.org>
+Build-Depends: debhelper (>= 5.0.37.2), librsync-dev (>=0.9.6), python-dev (>= 2.6.6-3), dpatch, rdiff, gnupg, python-mock
+Standards-Version: 3.9.1
+XS-Testsuite: autopkgtest
+X-Python-Version: >= 2.5
+
+Package: duplicity
+Architecture: any
+Homepage: http://duplicity.nongnu.org/
+Depends: ${shlibs:Depends}, ${python:Depends}, ${misc:Depends}
+Suggests: python-boto, ncftp, rsync, ssh, python-paramiko, python-oauthlib, python-httplib2
+Description: encrypted bandwidth-efficient backup
+ Duplicity backs directories by producing encrypted tar-format volumes
+ and uploading them to a remote or local file server. Because duplicity
+ uses librsync, the incremental archives are space efficient and only
+ record the parts of files that have changed since the last backup.
+ Because duplicity uses GnuPG to encrypt and/or sign these archives, they
+ will be safe from spying and/or modification by the server.
+

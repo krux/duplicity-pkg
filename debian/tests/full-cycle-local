@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+if [ -z "$TMPDIR" ]; then
+  TMPDIR=/tmp/adt
+  rm -rf $TMPDIR
+  mkdir -p $TMPDIR
+fi
+
+export XDG_CACHE_HOME=$TMPDIR/cache
+export PASSPHRASE=test
+
+cp -r /bin $TMPDIR/source
+duplicity $TMPDIR/source file://$TMPDIR/backup
+rm -r $XDG_CACHE_HOME
+duplicity file://$TMPDIR/backup $TMPDIR/restore
+diff -p $TMPDIR/source $TMPDIR/restore
+
+echo "PASSED"

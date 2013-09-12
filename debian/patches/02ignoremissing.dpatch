@@ -1,0 +1,25 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 02ignoremissing.dpatch by  <Michael Terry <mterry@ubuntu.com>>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' '--exclude=.hg' '--exclude=_darcs' '--exclude=.bzr' duplicity-0.6.21~/duplicity/util.py duplicity-0.6.21/duplicity/util.py
+--- duplicity-0.6.21~/duplicity/util.py	2013-09-12 11:11:53.571753582 -0400
++++ duplicity-0.6.21/duplicity/util.py	2013-09-12 11:12:00.467753378 -0400
+@@ -114,9 +114,8 @@
+     """
+     try:
+         fn(filename)
+-    except Exception:
+-        type, value, tb = sys.exc_info() #@UnusedVariable
+-        if isinstance(type, OSError) and value[0] == errno.ENOENT:
++    except OSError, ex:
++        if ex.errno == errno.ENOENT:
+             pass
+-        raise
+-
++        else:
++            raise
+File ./testing/tempdir/fifo is a fifo while file /tmp/dpep-work.mUCI5j/duplicity-0.6.21/testing/tempdir/fifo is a fifo

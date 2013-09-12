@@ -1,0 +1,26 @@
+#!/bin/sh
+set -e
+
+if [ -z "$TMPDIR" ]; then
+  TMPDIR=/tmp/adt
+  rm -rf $TMPDIR
+  mkdir -p $TMPDIR
+fi
+
+export XDG_CACHE_HOME=$TMPDIR/cache
+export PASSPHRASE=test
+
+# clean up from any previous run
+python -c '
+import ubuntuone.couch.auth as auth
+volume = "https://one.ubuntu.com/api/file_storage/v1/volumes/~/duplicity-test"
+print auth.request(volume, http_method="DELETE")
+'
+
+cp -r /bin $TMPDIR/source
+duplicity $TMPDIR/source u1+http://duplicity-test
+rm -r $XDG_CACHE_HOME
+duplicity u1+http://duplicity-test $TMPDIR/restore
+diff -p $TMPDIR/source $TMPDIR/restore
+
+echo "PASSED"

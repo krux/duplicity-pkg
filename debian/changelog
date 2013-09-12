@@ -1,0 +1,747 @@
+duplicity (0.6.21-0ubuntu4) saucy; urgency=low
+
+  * debian/patches/02ignoremissing.dpatch:
+    - Fix patch to not try to handle non-OSError exceptions
+
+ -- Michael Terry <mterry@ubuntu.com>  Thu, 12 Sep 2013 11:16:32 -0400
+
+duplicity (0.6.21-0ubuntu3) saucy; urgency=low
+
+  * debian/patches/02ignoremissing.dpatch:
+    - Fix a utility function that tried to ignore missing files, but
+      didn't.  Fixes a possible crasher.  LP: #1216921
+      Patch by Matthias Witte.
+
+ -- Michael Terry <mterry@ubuntu.com>  Thu, 12 Sep 2013 10:55:24 -0400
+
+duplicity (0.6.21-0ubuntu2) saucy; urgency=low
+
+  * debian/patches/01u1backend.dpatch:
+    - Backport some fixes for avoiding "400" errors when backing up to
+      Ubuntu One.  Patch by Christopher Townsend.  LP: #1161599
+
+ -- Michael Terry <mterry@ubuntu.com>  Wed, 15 May 2013 16:11:24 -0400
+
+duplicity (0.6.21-0ubuntu1) raring; urgency=low
+
+  * New upstream release
+  * debian/patches/02cachedesync.dpatch,
+    debian/patches/03u1backend.dpatch,
+    debian/patches/07caching.dpatch,
+    debian/patches/08volcorruption.dpatch:
+    - Dropped, applied upstream
+
+ -- Michael Terry <mterry@ubuntu.com>  Wed, 23 Jan 2013 14:32:15 -0500
+
+duplicity (0.6.20-0ubuntu5) raring; urgency=low
+
+  * debian/patches/00list:
+    - Guh, actually enable 08volcorruption.dpatch
+
+ -- Michael Terry <mterry@ubuntu.com>  Thu, 10 Jan 2013 20:23:01 -0500
+
+duplicity (0.6.20-0ubuntu4) raring; urgency=low
+
+  * debian/patches/08volcorruption.dpatch:
+    - Fix some data-corruption issues when resuming an interrupted
+      backup (LP: #1091269)
+
+ -- Michael Terry <mterry@ubuntu.com>  Mon, 07 Jan 2013 10:28:41 -0500
+
+duplicity (0.6.20-0ubuntu3) raring; urgency=low
+
+  * debian/patches/07caching.dpatch:
+    - Backport caching work done by Steve Atwell, on behalf of Chris J Arges
+    (LP: #1013446) 
+
+ -- Iain Lane <iain@orangesquash.org.uk>  Tue, 11 Dec 2012 14:52:15 +0000
+
+duplicity (0.6.20-0ubuntu2) raring; urgency=low
+
+  * debian/patches/03u1backend.dpatch:
+    - Update with a fix for a UnicodeDecodeError crash (LP: #1080423)
+
+ -- Michael Terry <mterry@ubuntu.com>  Wed, 05 Dec 2012 16:16:44 -0500
+
+duplicity (0.6.20-0ubuntu1) raring; urgency=low
+
+  * New upstream release
+  * debian/control:
+    - Update some suggests
+  * debian/patches/03u1backend.dpatch:
+    - Backport some fixes from trunk for the new U1 backend
+  * debian/patches/03forcecleanup.dpatch,
+    debian/patches/06nodeletebasedir.dpatch:
+    - Dropped, included upstream
+  * debian/patches/05upstreamgpgintf.dpatch:
+    - Dropped, upstream really wants us to use their gpg wrapper
+
+ -- Michael Terry <mterry@ubuntu.com>  Tue, 30 Oct 2012 15:35:12 +0100
+
+duplicity (0.6.19-0ubuntu2) quantal; urgency=low
+
+  * debian/patches/06nodeletebasedir.dpatch:
+    - Backport patch to fix possible error during restore due to
+      duplicate entries in backup metadata from resumed backups.
+      LP: #929067
+
+ -- Michael Terry <mterry@ubuntu.com>  Thu, 13 Sep 2012 12:43:50 -0400
+
+duplicity (0.6.19-0ubuntu1) quantal; urgency=low
+
+  * New upstream release (LP: #1014856)
+  * debian/patches/06lazywarnings.dpatch:
+    - Dropped, included upstream
+
+ -- Michael Terry <mterry@ubuntu.com>  Thu, 21 Jun 2012 13:06:46 -0400
+
+duplicity (0.6.18-0ubuntu3) precise; urgency=low
+
+  * debian/patches/06lazywarnings.dpatch:
+    - Backport patch to add some more machine-readable warning codes
+      for when duplicity can't restore a particular file.  This lets
+      apps like deja-dup present the user with a list of files with
+      problems.
+
+ -- Michael Terry <mterry@ubuntu.com>  Thu, 22 Mar 2012 09:24:58 -0400
+
+duplicity (0.6.18-0ubuntu2) precise; urgency=low
+
+  * debian/control:
+    - Drop python-paramiko to a Suggests to match the ssh Suggests and
+      to keep it off the CD, for space reasons.  It isn't needed for
+      deja-dup to use ssh anyway, since deja-dup uses GIO for that.  So
+      no loss of functionality in the desktop.
+
+ -- Michael Terry <mterry@ubuntu.com>  Tue, 06 Mar 2012 10:49:42 -0500
+
+duplicity (0.6.18-0ubuntu1) precise; urgency=low
+
+  * New upstream bug-fix release
+  * debian/patches/01pexpect.dpatch:
+    - Dropped, upstream switched to paramiko instead
+  * debian/control:
+    - Switch depend on python-pexpect to python-paramiko
+
+ -- Michael Terry <mterry@ubuntu.com>  Mon, 05 Mar 2012 11:42:55 -0500
+
+duplicity (0.6.17-0ubuntu1) precise; urgency=low
+
+  * New upstream release
+  * debian/patches/06_use_passphrase.dpatch,
+    debian/patches/07_large_rackspace_list.dpatch,
+    debian/patches/08_check_volumes.dpatch:
+    - Dropped, applied upstream
+  * debian/rules:
+    - Run new upstream test suite during build
+  * debian/control:
+    - Add rdiff as a build-dep to run above test suite
+  * debian/patches/06testfixes.dpatch:
+    - Fix a few tests to not fail erroneously
+  * debian/patches/07fixincresume.dpatch:
+    - Fix a bug with resuming an incremental backup that would result in
+      a bogus error.  Also patches in a test for it.
+  * debian/tests/full-cycle-local:
+    - New DEP-8 test script that backs up locally, restores, and checks files
+  * debian/tests/full-cycle-u1:
+    - New DEP-8 test script that does the same as above, but to Ubuntu One
+  * debian/tests/control:
+    - Start of DEP-8 test suite.  Only enable above full-cycle-local test
+      for automatic execution.  The other is for manual testing right now.
+
+ -- Michael Terry <mterry@ubuntu.com>  Tue, 06 Dec 2011 14:15:01 -0500
+
+duplicity (0.6.15-0ubuntu2) oneiric; urgency=low
+
+  * Backport some upstream fixes
+  * debian/patches/06_use_passhprase.dpatch:
+    - Don't prompt for passphrase if PASSPHRASE is set (LP: #836467)
+  * debian/patches/07_large_rackspace_list.dpatch:
+    - Support listing more than 10,000 files from Rackspace servers
+      (LP: #832149)
+  * debian/patches/08_check_volumes.dpatch:
+    - Attempt to prevent a data corruption bug that can't be reproduced
+      currently by detecting it up front and stopping the backup.
+
+ -- Michael Terry <mterry@ubuntu.com>  Thu, 08 Sep 2011 09:10:57 -0400
+
+duplicity (0.6.15-0ubuntu1) oneiric; urgency=low
+
+  * New upstream bug-fix release
+  * debian/watch:
+    - Update to look at launchpad.net
+  * debian/patches/06u1ignores404.dpatch,
+    debian/patches/07ignoreENOTCONN.dpatch:
+    - Dropped, applied upstream
+
+ -- Michael Terry <mterry@ubuntu.com>  Fri, 19 Aug 2011 15:30:23 -0400
+
+duplicity (0.6.14-0ubuntu3) oneiric; urgency=low
+
+  * debian/patches/07ignoreENOTCONN.dpatch:
+    - Patch to ignore ENOTCONN errors which can happen when gvfs-fuse
+      closes without cleaning up.  LP: #794576
+  * debian/patches/00list:
+    - Actually apply 06u1ignores404.dpatch from last upload as well
+      as the above 07 patch
+
+ -- Michael Terry <mterry@ubuntu.com>  Thu, 07 Jul 2011 16:09:51 -0400
+
+duplicity (0.6.14-0ubuntu2) oneiric; urgency=low
+
+  * debian/patches/06u1ignores404.dpatch:
+    - Ignore 404 "file not found" errors when trying to delete files
+      on Ubuntu One.  Backported from upstream trunk.
+
+ -- Michael Terry <mterry@ubuntu.com>  Wed, 22 Jun 2011 15:17:39 -0400
+
+duplicity (0.6.14-0ubuntu1) oneiric; urgency=low
+
+  * New upstream release
+  * debian/patches/01collstatus.dpatch,
+    debian/patches/06moregrace.dpatch,
+    debian/patches/07ubuntuone.dpatch,
+    debian/patches/08levelname.dpatch:
+    - Dropped, included upstream
+
+ -- Michael Terry <mterry@ubuntu.com>  Sat, 18 Jun 2011 21:36:07 -0400
+
+duplicity (0.6.13-2ubuntu1) oneiric; urgency=low
+
+  * debian/patches/07ubuntuone.dpatch:
+    - Backported from trunk; adds Ubuntu One backend
+  * debian/patches/08levelname.dpatch:
+    - Fixes logging issues introduced by above patch
+
+ -- Michael Terry <mterry@ubuntu.com>  Mon, 13 Jun 2011 11:53:19 -0400
+
+duplicity (0.6.13-2) unstable; urgency=low
+
+  * applied fix to allow collectionstatus op without access to key
+    (closes: #625645)
+
+ -- Alexander Zangerl <az@debian.org>  Sat, 21 May 2011 17:46:28 +1000
+
+duplicity (0.6.13-1) unstable; urgency=low
+
+  * New upstream release
+  * band-aid for #601584: now the error report is at least more verbose
+
+ -- Alexander Zangerl <az@debian.org>  Thu, 21 Apr 2011 18:28:56 +1000
+
+duplicity (0.6.12-1) unstable; urgency=low
+
+  * New upstream release (closes: #615668, #579966)
+  * switched to dh_python2 (closes: #616797)
+  * now uses mainstream GnuPGInterface module again
+
+ -- Alexander Zangerl <az@debian.org>  Sun, 13 Mar 2011 00:03:18 +1000
+
+duplicity (0.6.09-5) unstable; urgency=low
+
+  * changed homepage field (closes: #599060)
+  * added patch for problems with rsync 3.0.7++ (closes: #595562)
+
+ -- Alexander Zangerl <az@debian.org>  Sat, 20 Nov 2010 14:37:54 +1000
+
+duplicity (0.6.09-4) unstable; urgency=low
+
+  * and again i uploaded the Lenny-built package..sigh. (closes: #594562)
+  * lifted standards version, updated suggests a bit
+
+ -- Alexander Zangerl <az@debian.org>  Tue, 07 Sep 2010 16:45:19 +1000
+
+duplicity (0.6.09-3) unstable; urgency=low
+
+  * add patch to prime option parser with proper arguments 
+    (closes: #595567)
+
+ -- Alexander Zangerl <az@debian.org>  Mon, 06 Sep 2010 12:57:46 +1000
+
+duplicity (0.6.09-2) unstable; urgency=high
+
+  * added copyright text for the local, modified, version 
+    of GnuPGInterface (closes: #594532)
+  * upload version built against python 2.6, making the package
+    installable in Squeeze (closes: #594562)
+
+ -- Alexander Zangerl <az@debian.org>  Sat, 28 Aug 2010 14:37:44 +1000
+
+duplicity (0.6.09-1) unstable; urgency=low
+
+  * New upstream release (closes: #581260, #572102, #531786)
+
+ -- Alexander Zangerl <az@debian.org>  Wed, 25 Aug 2010 23:32:30 +1000
+
+duplicity (0.6.08b-1) unstable; urgency=low
+
+  * New upstream release
+  * backed out patch for upstream bug#497243 from 06-3 and -4, as
+    that fix was only cosmetic.
+    This version now enforces extra-clean cleanups on any remove operation,
+    which both fixes the cache desync issue as well as the accumulation of
+    old cruft in remote archive and local cache. 
+    NEWS.Debian and manpage have been updated to 
+    mention that behaviour. (closes: #572792)
+
+ -- Alexander Zangerl <az@debian.org>  Mon, 15 Mar 2010 20:52:56 +1000
+
+duplicity (0.6.06-5) unstable; urgency=low
+
+  * updated watch file (closes: #573890)
+
+ -- Alexander Zangerl <az@debian.org>  Mon, 15 Mar 2010 19:48:37 +1000
+
+duplicity (0.6.06-4) unstable; urgency=low
+
+  * updated fix for upstream bug#497243 to fix one remaining
+    case where cache desynchronization occurs.
+
+ -- Alexander Zangerl <az@debian.org>  Sun, 28 Feb 2010 11:10:07 +1000
+
+duplicity (0.6.06-3) unstable; urgency=low
+
+  * applied fix for upstream bug#497243: cache desynchronization.
+
+ -- Alexander Zangerl <az@debian.org>  Tue, 26 Jan 2010 17:12:18 +1000
+
+duplicity (0.6.06-2) unstable; urgency=high
+
+  * fixed ssh backend failure (tried to import local pexpect module)
+    (closes: #556095)
+
+ -- Alexander Zangerl <az@debian.org>  Mon, 16 Nov 2009 04:48:45 +1000
+
+duplicity (0.6.06-1) unstable; urgency=low
+
+  * New upstream release (closes: #539903, #420858)
+  * does no longer depend on python-gnupginterface: upstream
+    provides a modified version which is claimed to be incompatible
+  * does not install a local version of python-pexpect 
+    anymore (closes: #555359)
+    
+ -- Alexander Zangerl <az@debian.org>  Fri, 13 Nov 2009 07:30:49 +1000
+
+duplicity (0.6.05-2) unstable; urgency=low
+
+  * adjusted rules to cater for future python2.6 install
+    setup (closes: #547825)
+
+ -- Alexander Zangerl <az@debian.org>  Fri, 25 Sep 2009 11:05:38 +1000
+
+duplicity (0.6.05-1) unstable; urgency=low
+
+  * New upstream release
+  * lifted standards version
+
+ -- Alexander Zangerl <az@debian.org>  Sun, 20 Sep 2009 10:46:40 +1000
+
+duplicity (0.6.04-1) unstable; urgency=low
+
+  * New upstream release (closes: #536361, #537260, #42858, 
+    #399371, #388180, #386749 )
+  * new project homepage
+  * added notes regarding changed archive-dir behaviour
+
+ -- Alexander Zangerl <az@debian.org>  Wed, 12 Aug 2009 12:34:01 +1000
+
+duplicity (0.5.16-1) unstable; urgency=low
+
+  * New upstream release (closes: #524786)
+  * removed last remaining debian-local patch
+
+ -- Alexander Zangerl <az@debian.org>  Thu, 23 Apr 2009 14:51:28 +1000
+
+duplicity (0.5.11-2) unstable; urgency=low
+
+  * changed the setup to temporarily include upstream's repaired copy of 
+    GnuPGInterface.py: because of #509415 in python-gnupginterface
+    duplicity currently does not work with public key encryption, 
+    no signing and archive dirs.
+
+ -- Alexander Zangerl <az@debian.org>  Mon, 16 Mar 2009 15:57:01 +1000
+
+duplicity (0.5.11-1) unstable; urgency=low
+
+  * New upstream release (closes: #519576)
+
+ -- Alexander Zangerl <az@debian.org>  Sat, 14 Mar 2009 09:14:57 +1000
+
+duplicity (0.5.06-2) unstable; urgency=low
+
+  * applied most recent upstream fixes 
+
+ -- Alexander Zangerl <az@debian.org>  Sat, 31 Jan 2009 14:31:17 +1000
+
+duplicity (0.5.06-1) unstable; urgency=low
+
+  * New upstream release
+  * built against sid, not etch (closes: #513446)
+
+ -- Alexander Zangerl <az@debian.org>  Fri, 30 Jan 2009 11:32:32 +1000
+
+duplicity (0.5.02-2) unstable; urgency=low
+
+  * lifted standards version
+  * added homepage to control (closes: #512798)
+
+ -- Alexander Zangerl <az@debian.org>  Wed, 28 Jan 2009 11:59:57 +1000
+
+duplicity (0.5.02-1) unstable; urgency=low
+
+  * New upstream release (closes: #502207)
+
+ -- Alexander Zangerl <az@debian.org>  Wed, 15 Oct 2008 08:38:15 +1000
+
+duplicity (0.4.12-2) unstable; urgency=low
+
+  * applied upstream patch to repair --no-encryption option
+    (which wrongly requested a passphrase) (closes: #497071)
+
+ -- Alexander Zangerl <az@debian.org>  Sun, 31 Aug 2008 12:24:40 +1000
+
+duplicity (0.4.12-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Alexander Zangerl <az@debian.org>  Thu, 21 Aug 2008 10:49:04 +1000
+
+duplicity (0.4.11-2) unstable; urgency=high
+
+  * rebuilt for testing's 2.5 python (closes: #480568)
+
+ -- Alexander Zangerl <az@debian.org>  Sun, 11 May 2008 11:10:01 +1000
+
+duplicity (0.4.11-1) unstable; urgency=low
+
+  * New upstream release
+  * make duplicity accept s3 access credentials from boto config files
+    and not just the environment (closes: #480417)
+
+ -- Alexander Zangerl <az@debian.org>  Sat, 10 May 2008 11:17:39 +1000
+
+duplicity (0.4.10-2) unstable; urgency=low
+
+  * applied patch to work around newer python-boto behaviour
+    which can make existing S3 backups inaccessible. (closes: #475890)
+
+ -- Alexander Zangerl <az@debian.org>  Tue, 15 Apr 2008 12:46:32 +1000
+
+duplicity (0.4.10-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Alexander Zangerl <az@debian.org>  Mon, 31 Mar 2008 22:19:16 +1000
+
+duplicity (0.4.8-1) unstable; urgency=high
+
+  * New upstream release
+  * fixed backup data corruption for rsync backend
+
+ -- Alexander Zangerl <az@debian.org>  Fri, 21 Dec 2007 17:16:42 +1000
+
+duplicity (0.4.7-1) unstable; urgency=low
+
+  * New upstream release (closes: #452700)
+
+ -- Alexander Zangerl <az@debian.org>  Sat,  8 Dec 2007 10:29:26 +1000
+
+duplicity (0.4.3-6) unstable; urgency=low
+
+  * fixed some manpage typos (closes: #450881)
+
+ -- Alexander Zangerl <az@debian.org>  Thu, 15 Nov 2007 12:21:48 +1000
+
+duplicity (0.4.3-5) unstable; urgency=low
+
+  * minor manpage improvements in response to #447538
+
+ -- Alexander Zangerl <az@debian.org>  Wed, 24 Oct 2007 12:22:14 +1000
+
+duplicity (0.4.3-4) unstable; urgency=low
+
+  * applied Christoph Martin's patch to the ftp backend 
+    to make duplicity cooperate with etch's ncftp (closes: #444972)
+
+ -- Alexander Zangerl <az@debian.org>  Sat,  6 Oct 2007 20:02:43 +1000
+
+duplicity (0.4.3-3) unstable; urgency=medium
+
+  * reworked the "no passphrase" patch to properly cover 
+    symmetric encryption, where a passphrase is always needed 
+    (closes: #443803)
+
+ -- Alexander Zangerl <az@debian.org>  Tue, 25 Sep 2007 12:14:26 +1000
+
+duplicity (0.4.3-2) unstable; urgency=low
+
+  * now suggests ncftp (closes: #442834) and mentions that in NEWS.Debian
+    i have decided that Recommends: is too strong here, as ftp is a lousy
+    protocol which should be avoided as much as possible.
+  * applied upstream fix for leaking ftp passphrases via the commandline
+    (closes: #442840). the fix works only with ncftp version 3.2.1
+    and newer, which means etch is out.
+  * applied upstream patch for upstream-#21123, which fixes another 
+    ftp backend problem.
+  * finally fixed the superfluous passphrase dialogs
+  * tidied build process for easier integration into ubuntu, removing
+    some unnecessary python version dependencies
+  * applied upstream patch for upstream-#6211, restoring strict host key 
+    checks for the ssh backend.
+
+ -- Alexander Zangerl <az@debian.org>  Wed, 19 Sep 2007 22:36:04 +1000
+
+duplicity (0.4.3-1) unstable; urgency=low
+
+  * New upstream release (closes: #439057)
+    this release closes a whole bunch of old and recent debian bugs
+    bzip2 is now optional (closes: #437694)
+    the manpage is mostly ok now (closes: #345172)
+    passphrase handling was overhauled (closes: #370198)
+    sockets are now cleanly ignored (closes: #246984)
+    commands are retried for temporary problems (closes: #346306)
+  * new S3 backend (closes: #384490)    
+    this requires python-boto, which is now listed as suggested
+  * updated dependencies with python-pexpect 
+  * unattended encrypted backups with archive dir work (closes: #369971, #404345)
+  * patch set reworked
+  * added local fix for offending/garbage files prohibiting 
+    further actions (closes: #228388)
+  * added local fix for better tempfile naming
+
+ -- Alexander Zangerl <az@debian.org>  Sat,  8 Sep 2007 20:09:26 +1000
+
+duplicity (0.4.2-16) unstable; urgency=low
+
+  * added example backup script (closes: #408749)
+  * re-added ftp-timeout-patch, which was lost somewhere around 0.4.2-6
+    and added pending ftp-mkdir-patch (closes: #413335)
+
+ -- Alexander Zangerl <az@debian.org>  Tue, 19 Jun 2007 12:38:43 +1000
+
+duplicity (0.4.2-15) unstable; urgency=low
+
+  * added --help option and usage message (closes: #345165)
+
+ -- Alexander Zangerl <az@debian.org>  Tue, 19 Jun 2007 12:09:21 +1000
+
+duplicity (0.4.2-14) unstable; urgency=high
+
+  * fixed bad patch sequence that broke sftp support (closes: #426819)
+
+ -- Alexander Zangerl <az@debian.org>  Fri,  1 Jun 2007 00:19:32 +1000
+
+duplicity (0.4.2-13) unstable; urgency=low
+
+  * added a --volsize option to allow user-specified volume chunks
+    instead of always splitting at 5Mb.
+
+ -- Alexander Zangerl <az@debian.org>  Thu, 24 May 2007 22:48:52 +1000
+
+duplicity (0.4.2-12) unstable; urgency=low
+
+  * reworked the patch set
+  * added patch for archive-dir and incrementals (closes: #370206)
+  * added patch for encrypted unattended backups 
+    with archive-dir (closes: #369971)
+
+ -- Alexander Zangerl <az@debian.org>  Tue, 10 Apr 2007 14:28:13 +1000
+
+duplicity (0.4.2-11) unstable; urgency=low
+
+  * I'm adopting duplicity. Thanks to Martin Wuertele 
+    for his past work on duplicity! (closes: #418159)
+  * finetuned debhelper dependency
+    
+ -- Alexander Zangerl <az@debian.org>  Sun,  8 Apr 2007 17:40:30 +1000
+
+duplicity (0.4.2-10.1) unstable; urgency=medium
+
+  * Switch back to python 2.4, as python-central can apparently no longer cope
+    with 2.3, and 2.4 seems to work ok now; patch from Joey Hess.
+    (Closes: #396158)
+
+ -- Steinar H. Gunderson <sesse@debian.org>  Sat, 11 Nov 2006 13:32:07 +0100
+
+duplicity (0.4.2-10) unstable; urgency=low
+
+  * fix build target (Closes: #386933)
+
+ -- Martin Wuertele <maxx@debian.org>  Sat, 16 Sep 2006 10:22:28 +0200
+
+duplicity (0.4.2-9) unstable; urgency=low
+
+  * switched to python-central
+  * removed modules patch (no more needed)
+
+ -- Martin Wuertele <maxx@debian.org>  Sun, 10 Sep 2006 14:29:07 +0200
+
+duplicity (0.4.2-8) unstable; urgency=high
+
+  * depend on python2.3 fixing restore (Closes: #386607)
+
+ -- Martin Wuertele <maxx@debian.org>  Sat,  9 Sep 2006 11:10:48 +0200
+
+duplicity (0.4.2-7.1) unstable; urgency=high
+
+  * NMU
+  * Don't call dh_pysupport with -n; we need those generated manintainer
+    scripts to, well, work. Closes: #384489, #384826
+
+ -- Joey Hess <joeyh@debian.org>  Fri,  8 Sep 2006 01:41:52 -0400
+
+duplicity (0.4.2-7) unstable; urgency=low
+
+  * Fix arch so _librsync.so gets compiled (Closes: #385989)
+
+ -- Martin Wuertele <maxx@debian.org>  Mon,  4 Sep 2006 22:25:09 +0200
+
+duplicity (0.4.2-6) unstable; urgency=low
+
+  * switch to dpatch for patch management
+  * fix private module search path and make sure postint/postrm work 
+    (Closes: #384489)
+  * updated copyright
+
+ -- Martin Wuertele <maxx@debian.org>  Sat, 26 Aug 2006 23:25:57 +0200
+
+duplicity (0.4.2-5) unstable; urgency=low
+
+  * removed patches from debian-revision
+  * added README.Debian describing applied patches
+  * fix targets (Closes: #384570)
+
+ -- Martin Wuertele <maxx@debian.org>  Fri, 25 Aug 2006 17:39:09 +0200
+
+duplicity (0.4.2-4+sftp+compression) unstable; urgency=low
+
+  * temporary disable amazons3 patch
+  * don't pass /usr/share/python-support to dh_pysupport to fix
+    searchpath (Closes: #384489)
+
+ -- Martin Wuertele <maxx@debian.org>  Thu, 24 Aug 2006 19:55:40 +0200
+
+duplicity (0.4.2-3+sftp+amazons3+compression) unstable; urgency=low
+
+  * remove old byte compiled stuff in preinst (Closes: #384142)
+
+ -- Martin Wuertele <maxx@debian.org>  Tue, 22 Aug 2006 22:26:46 +0200
+
+duplicity (0.4.2-2+sftp+amazons3+compression.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Update package to the last python policy (Closes: #380784).
+
+ -- Pierre Habouzit <madcoder@debian.org>  Sat, 12 Aug 2006 23:20:21 +0200
+
+duplicity (0.4.2-2+sftp+amazons3+compression.1) unstable; urgency=low
+
+  * NMU
+  * Fix echo -e bashism. Closes: #375543
+
+ -- Joey Hess <joeyh@debian.org>  Wed,  5 Jul 2006 16:09:56 -0400
+
+duplicity (0.4.2-2+sftp+amazons3+compression) unstable; urgency=low
+
+  * changed build-depends from python2.3-dev to python-dev >= 2.3
+    (Closes: #367484)
+
+ -- Martin Wuertele <maxx@debian.org>  Thu, 18 May 2006 13:35:15 -0500
+
+duplicity (0.4.2-1+sftp+amazons3+compression) unstable; urgency=low
+
+  * new upstream release (Closes: #358519)
+    * fixes some scp/sftp problems
+    * understands ftp 450 (Closes: #238677)
+    * --remove-older-than makes sure duplicity deletes older signatures
+    * --remove-older-than now cannot delete the active backup chain
+      (Closes: #228386)
+  * added sftp patch by intrigeri <intrigeri@boum.org>
+  * added amazon s3 patch by Brian Sutherland <jinty@web.de>
+  * added compression patch by Mathias Wagner
+    <mathias.wagner@physik.tu-darmstadt.de>
+
+ -- Martin Wuertele <maxx@debian.org>  Mon, 15 May 2006 13:44:05 -0500
+
+duplicity (0.4.1-8) unstable; urgency=high
+
+  * added patch to fix ftp timeout exception when backing up huge files with
+    small changes (patch by Stefan Schimanski <schimmi@debian.org>)
+
+ -- Martin Wuertele <maxx@debian.org>  Mon,  6 Sep 2004 18:57:42 +0200
+
+duplicity (0.4.1-7) unstable; urgency=low
+
+  * fixed linebreak in duplicity.1 (Thanks to Uli Martens <youam@youam.de>
+
+ -- Martin Wuertele <maxx@debian.org>  Fri,  3 Sep 2004 16:36:45 +0200
+
+duplicity (0.4.1-6) unstable; urgency=low
+
+  * fixed permissions for tarfile.py
+  * converted changelog to UTF-8
+  * fixed python dependency to 2.3 in tarfile.py
+
+ -- Martin Wuertele <maxx@debian.org>  Sat,  1 May 2004 22:27:22 +0200
+
+duplicity (0.4.1-5) unstable; urgency=low
+
+  * Depend on python-gnupginterface instead of providing GnuPGInterface.py
+    (Closes: #230048)
+
+ -- Martin Wuertele <maxx@debian.org>  Fri, 30 Jan 2004 18:13:05 +0100
+
+duplicity (0.4.1-4) unstable; urgency=low
+
+  * removed byte compiled code and added postinst to do so
+    (Closes: #221399)
+
+ -- Martin Wuertele <maxx@debian.org>  Thu, 20 Nov 2003 19:49:57 +0100
+
+duplicity (0.4.1-3) unstable; urgency=low
+
+  * removed CHANGELOG.gz from package 
+    (Closes: #219784)
+
+ -- Martin Wuertele <maxx@debian.org>  Sun,  9 Nov 2003 19:51:53 +0100
+
+duplicity (0.4.1-2) unstable; urgency=low
+
+  * use librsync.h and depend on librsync-dev >= 0.9.6 since prior versions
+    provide rsync.h
+
+ -- Martin Wuertele <maxx@debian.org>  Sun, 31 Aug 2003 17:19:58 +0200
+
+duplicity (0.4.1-1) unstable; urgency=low
+
+  * new upstream release
+
+ -- Martin Würtele <maxx@debian.org>  Mon, 11 Aug 2003 21:09:56 +0200
+
+duplicity (0.4.0-4) unstable; urgency=low
+
+  * fixed auto build problem 
+    (Closes: #204720)
+
+ -- Martin Würtele <maxx@debian.org>  Sun, 10 Aug 2003 14:03:20 +0200
+
+duplicity (0.4.0-3) unstable; urgency=low
+
+  * recompiled witch python 2.3
+
+ -- Martin Würtele <maxx@debian.org>  Sat,  9 Aug 2003 09:17:33 +0200
+
+duplicity (0.4.0-2) unstable; urgency=low
+
+  * applied LongLink patch from cvs
+  * added tarfile license to copyright
+
+ -- Martin Würtele <maxx@debian.org>  Fri,  8 Aug 2003 16:06:27 +0200
+
+duplicity (0.4.0-1) unstable; urgency=low
+
+  * Initial Release.
+    (Closes: #188713)
+
+ -- Martin Wuertele <maxx@debian.org>  Sat, 12 Apr 2003 17:06:27 +0200
+

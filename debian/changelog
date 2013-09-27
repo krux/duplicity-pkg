@@ -1,3 +1,9 @@
+duplicity (0.6.21-0ubuntu4) lucid; urgency=low
+
+  * backport to lucid
+
+ -- Krux Ops <ops@krux.com>  Fri, 27 Sep 2013 21:53:31 +0000
+
 duplicity (0.6.21-0ubuntu4) saucy; urgency=low
 
   * debian/patches/02ignoremissing.dpatch:

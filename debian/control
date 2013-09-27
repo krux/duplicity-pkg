@@ -3,7 +3,7 @@ Section: utils
 Priority: optional
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Alexander Zangerl <az@debian.org>
-Build-Depends: debhelper (>= 5.0.37.2), librsync-dev (>=0.9.6), python-dev (>= 2.6.6-3), dpatch, rdiff, gnupg, python-mock
+Build-Depends: debhelper (>= 5.0.37.2), librsync-dev (>=0.9.6), python-dev (>= 2.6.5), dpatch, rdiff, gnupg, python-mock
 Standards-Version: 3.9.1
 XS-Testsuite: autopkgtest
 X-Python-Version: >= 2.5

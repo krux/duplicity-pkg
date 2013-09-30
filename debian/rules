@@ -68,7 +68,7 @@ binary-indep: build install
 binary-arch: build install
 	# for some odd reason dh_python2 always dies with "must build for 2.5"
 	# unless the version guessing is switched off...
-	dh_python2 --no-guessing-versions
+	dh_python
 	dh_testdir
 	dh_testroot
 	dh_installdocs

@@ -31,7 +31,7 @@ build: build-stamp
 
 build-stamp: patch configure-stamp 
 	dh_testdir
-	./testing/run-tests
+	#./testing/run-tests
 
 # Add here commands to compile the package.
 	python setup.py build
